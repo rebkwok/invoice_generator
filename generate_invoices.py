@@ -67,7 +67,9 @@ class InvoiceGenerator:
         page_layout.add(Paragraph(" "))
         page_layout.add(self._build_payment_information())
 
-        output_dir = self.config.get("output_dir", Path(__file__).parent)
+        output_dir = Path(self.config.get("output_dir", Path(__file__).parent))
+        output_dir.mkdir(parents=True, exist_ok=True)
+        
         filename = (
             Path(output_dir)
             / f"{self.config['invoice_filename_prefix']}_{inv_num}_{inv_date}.pdf"
